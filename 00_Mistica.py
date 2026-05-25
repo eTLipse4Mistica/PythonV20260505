@@ -1,6 +1,7 @@
 import streamlit as st
 import webbrowser
 from Utils.Utils import ReturnDf
+from Utils.ApiMercadoPago import GeneratePaymentLink
 
 ### Page Configuration ###
 st.set_page_config(
@@ -25,16 +26,52 @@ if 'data' not in st.session_state:
     dfActual = ReturnDf('./SupportContent/DataBase/TempData.csv', separator = ';', encoder = 'utf-8')
     st.session_state['data'] = dfActual
 
-
-
-
-
-
 st.markdown('## Mística - Revelenda sua hístória com seu nome!')
 
-btn = st.button('Doação! (A ser implementado!)')
-# if btn:
-#     webbrowser.open_new_tab('https://www.linkedin.com/in/joeldiniz/')
+linkStartPayment = GeneratePaymentLink();
+
+st.markdown(
+    """
+    <style>
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    div.stButton > button:first-child {
+        animation: pulse 2s infinite;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 12px 24px;
+        border-radius: 30px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    div.stButton > button:first-child:hover {
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+col1, col2, col3, col4, col5 = st.columns([1, 1, 2, 1, 1])
+with col3:
+    btn = st.button('💝 Apoie este Projeto - Doe R$ 7,99 💝', use_container_width=True)
+
+if btn:
+    webbrowser.open_new_tab(linkStartPayment)
+
+# Awareness-raising text about organ donation
+st.markdown(
+    '<p style="text-align: center; color: red; font-weight: bold;">'
+    '✨ Sua doação é fundamental para a manutenção das as funcionalidades já implementadas e avançar com as a serem implementadas! ✨'
+    '</p>',
+    unsafe_allow_html=True
+)
 
 st.write('---') # Hotline
 st.markdown(
