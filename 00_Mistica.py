@@ -2,6 +2,7 @@ import streamlit as st
 import webbrowser
 from Utils.Utils import ReturnDf
 from Utils.ApiMercadoPago import GeneratePaymentLink
+from streamlit.components.v1 import html
 
 ### Page Configuration ###
 st.set_page_config(
@@ -58,17 +59,33 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3, col4, col5 = st.columns([1, 1, 2, 1, 1])
-with col3:
-    btn = st.button('💝 Apoie este Projeto - Doe R$ 7,99 💝', use_container_width=True)
+# JavaScript function to open the link
+def open_page(url):
+    open_script = f"""
+        <script type="text/javascript">
+            window.open('{url}', '_blank').focus();
+        </script>
+    """
+    html(open_script)
 
-if btn:
-    webbrowser.open_new_tab(linkStartPayment)
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    btn = st.button('💝 Apoie este Projeto - Doe R$ 7,99 💝', use_container_width=True)
+    if btn:
+        open_page(linkStartPayment)
 
 # Awareness-raising text about organ donation
 st.markdown(
     '<p style="text-align: center; color: red; font-weight: bold;">'
-    '✨ Sua doação é fundamental para a manutenção das as funcionalidades já implementadas e avançar com as a serem implementadas! ✨'
+    '✨ Sua doação é fundamental para a manutenção das funcionalidades já implementadas e avançar com as a serem implementadas! ✨'
+    '</p>',
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    '<p style="text-align: center; color: red;">'
+    '🔗 <strong>Link alternativo para doação de valores variados:</strong> '
+    '<a href="https://link.mercadopago.com.br/j3di" target="_blank" style="color: #0066cc;">link.mercadopago.com.br/j3di</a>'
     '</p>',
     unsafe_allow_html=True
 )

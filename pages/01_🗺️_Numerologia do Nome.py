@@ -37,7 +37,7 @@ st.write('---') # Hotline
 
 ### App Page ###
 
-NOME_TESTE = "Maria José Fonseca Costa"
+# NOME_TESTE = "Maria José Fonseca Costa"
 
 # Save values in session_state
 if 'nameInString' not in st.session_state:
@@ -215,6 +215,21 @@ if st.button('Gerar pirâmide', disabled=not st.session_state.btnCreatePyramid_e
             # Save to session_state if necessary
             st.session_state.negativeSequence = negativeSequence
             st.session_state.negativeSequenceUnique = negativeSequenceUnique
+        
+        st.markdown(
+            '<p style="text-align: center; color: red; font-weight: bold;">'
+            '✨ Volte ao menu principal e realize sua doação (R$ 7,99)! Sua doação é fundamental para a manutenção das funcionalidades já implementadas, e avançar com as a serem implementadas! ✨'
+            '</p>',
+            unsafe_allow_html=True
+        )
+        st.markdown(
+            '<p style="text-align: center; color: red;">'
+            '🔗 <strong>Link alternativo para doação de valores variados:</strong> '
+            '<a href="https://link.mercadopago.com.br/j3di" target="_blank" style="color: #0066cc;">link.mercadopago.com.br/j3di</a>'
+            '</p>',
+            unsafe_allow_html=True
+        )
+
         
     except Exception as e:
         st.error(f'Erro: {e}')
